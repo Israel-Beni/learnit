@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 export default function Home() {
 
@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <Button variant="contained" onClick={() => fetchQuery()}>Fetch Courses</Button>
+        <Typography variant="h6" component="h1">Welcome to LearnIt</Typography>
       </div>
     </main>
   );
