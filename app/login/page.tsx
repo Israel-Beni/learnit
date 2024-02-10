@@ -16,6 +16,7 @@ function LoginPage(): JSX.Element {
         console.log("This is a test");
         console.log("Second test");
 
+
         try {
             const response = await fetch(
                 `http://localhost:1337/api/auth/local`,

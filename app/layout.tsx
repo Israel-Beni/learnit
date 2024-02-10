@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import useUserData from "./hooks/useUserData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,11 @@ export default function RootLayout({
         title: "LearnIt",
         description: "Frontend course for the web dev learner",
     };
+
+    // The following 2 lines are just for testing useUserData() hook
+    const userData = useUserData();
+    console.log(userData)
+    
     return (
         <html lang="en">
             <body
