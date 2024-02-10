@@ -1,43 +1,51 @@
-'use client';
+"use client";
 import { Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import scss from './login.module.scss';
-
-type UserData = {
-    authToken: string;
-    userName: string;
-    isLoggedIn: boolean;
-};
+import Cookies from "js-cookie";
+import scss from "./login.module.scss";
+import type { UserDataType } from "../hooks/useUserData";
 
 function LoginPage(): JSX.Element {
     const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState("");
-    const [userData, setUserData] = useState<UserData | null>(null);
+    const [userData, setUserData] = useState<UserDataType | null>(null);
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
         console.log("This is a test");
+        console.log("Second test");
 
         try {
-            const response = await fetch("127.0.0.1:1337/api/auth/local", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ identifier, password }),
-            });
+            const response = await fetch(
+                `http://localhost:1337/api/auth/local`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ identifier, password }),
+                }
+            );
 
             const data = await response.json();
 
+            console.log("response.ok", response.ok);
+
             if (response.ok) {
                 // format the user-related data before storing in the cookie
-                const userData: UserData = {
+                const userData: UserDataType = {
                     authToken: data.jwt,
                     userName: data.user.username,
                     isLoggedIn: data.user.confirmed,
                 };
+
+                Cookies.set('userData', JSON.stringify(userData), { expires: 30}); // Expires in 30 days
+
+                // Update the user data in the state to trigger re-render
                 setUserData(userData);
+                // location.reload();
+                // router.push('/profile'); // Replace '/profile' with your actual profile page route
                 console.log(userData);
             } else {
                 setLoginError(data.message[0].messages[0].message);
@@ -51,7 +59,12 @@ function LoginPage(): JSX.Element {
     };
 
     const handleSignOut = () => {
+        // Remove the userData cookie to log the user out
+        Cookies.remove("userData");
+        // Clear the user data from state to trigger re-render
         setUserData(null);
+        location.reload();
+        // router.push('/login'); // Replace '/profile' with your actual profile page route
         console.log(userData);
     };
 
