@@ -3,18 +3,14 @@ import scss from "./Header.module.scss";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import { UserDataType } from "../../hooks/useUserData";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export interface HeaderProps {
-    userData: UserDataType;
+    userData: UserDataType | null;
 }
 
 const Header: React.FC<HeaderProps> = ({ userData }): JSX.Element => {
-    const router = useRouter();
-
-    const handleSignOut = () => router.push("/logout");
-    const handleSignIn = () => router.push("/login");
-
+    console.log("isLoggedIn:", userData?.isLoggedIn || undefined)
     return (
         <header className={scss.header}>
             <nav className={scss.nav}>
@@ -49,18 +45,37 @@ const Header: React.FC<HeaderProps> = ({ userData }): JSX.Element => {
                         </li>
                     )}
                 </ul>
-                {}
-                <div className={scss.buttonGroup}>
-                    <Button variant="contained" color="success" href="/login">
-                        Sign in
+                {userData?.isLoggedIn ? (
+                    <Button
+                        className={scss.signOutBtn}
+                        color="error"
+                        href="/logout"
+                        variant="contained"
+                    >
+                        Sign Out
                     </Button>
-                    <Button variant="contained" color="error" href="/logout">
-                        Sign out
-                    </Button>
-                    <Button variant="contained" color="info" href="/register">
-                        register
-                    </Button>
-                </div>
+                ) : (
+                    <>
+                        <Button
+                            className={scss.signOutBtn}
+                            color="success"
+                            href="/login"
+                            variant="contained"
+                            style={{ marginRight: "1rem" }}
+                        >
+                            Sign In
+                        </Button>
+                    
+                        <Button
+                            className={scss.signOutBtn}
+                            color="info"
+                            href="/register"
+                            variant="contained"
+                        >
+                            Register
+                        </Button>
+                    </>
+                )}
             </nav>
         </header>
     );

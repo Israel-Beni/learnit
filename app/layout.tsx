@@ -40,7 +40,7 @@ export default function RootLayout({
                 }}
             >
                 <ThemeProvider theme={darkTheme}>
-                    <Header />
+                    <Header userData={userData} />
                     {children}
                 </ThemeProvider>
             </body>
