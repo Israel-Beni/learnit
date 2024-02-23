@@ -69,6 +69,8 @@ function LoginPage(): JSX.Element {
         console.log(userData);
     };
 
+    console.log(userData?.isLoggedIgit )
+
     return (
         <div className={scss.login}>
             <Typography>Login</Typography>
@@ -119,7 +121,7 @@ function LoginPage(): JSX.Element {
                     <p>Logged in as: {userData.userName}</p>
                     <p>Is logged in: {userData.isLoggedIn ? "Yes" : "No"} </p>
                     <Button
-                        variant="outlined"
+                        variant="contained"
                         onClick={handleSignOut}
                         color={"error"}
                     >

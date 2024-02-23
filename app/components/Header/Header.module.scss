@@ -4,6 +4,12 @@
     background-color: #2250B8;
     justify-content: space-between;
     align-items: center;
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
 }
 
 .menu {
@@ -11,6 +17,7 @@
     align-items: center;
     list-style-type: none;
     gap: 1rem;
+    width: 100%;
 
     a,
     p {
@@ -35,4 +42,9 @@
 .buttonGroup {
     display: flex;
     gap: 1rem;
+
+    a {
+        width: max-content;
+        white-space: nowrap;
+    }
 }

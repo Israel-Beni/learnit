@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import useUserData from "./hooks/useUserData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +24,7 @@ export default function RootLayout({
     };
 
     // The following 2 lines are just for testing useUserData() hook
-    const userData = useUserData();
-    console.log(userData)
+    
     
     return (
         <html lang="en">
@@ -40,7 +38,7 @@ export default function RootLayout({
                 }}
             >
                 <ThemeProvider theme={darkTheme}>
-                    <Header userData={userData} />
+                    <Header />
                     {children}
                 </ThemeProvider>
             </body>

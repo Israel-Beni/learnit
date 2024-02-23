@@ -4,13 +4,17 @@ import { Typography } from "@mui/material";
 import Link from "next/link";
 import { UserDataType } from "../../hooks/useUserData";
 import { useRouter } from "next/navigation";
+import useUserData from "../../hooks/useUserData";
+
 
 export interface HeaderProps {
     userData: UserDataType | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ userData }): JSX.Element => {
-    console.log("isLoggedIn:", userData?.isLoggedIn || undefined)
+const Header: React.FC = (): JSX.Element => {
+    const userData = useUserData();
+    console.log("isLoggedIn:", userData?.isLoggedIn || undefined);
+
     return (
         <header className={scss.header}>
             <nav className={scss.nav}>
@@ -55,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ userData }): JSX.Element => {
                         Sign Out
                     </Button>
                 ) : (
-                    <>
+                    <div className={scss.buttonGroup}>
                         <Button
                             className={scss.signOutBtn}
                             color="success"
@@ -74,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ userData }): JSX.Element => {
                         >
                             Register
                         </Button>
-                    </>
+                    </div>
                 )}
             </nav>
         </header>
